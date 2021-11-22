@@ -2,6 +2,7 @@ import React from 'react';
 import { UIStore } from '../store/store';
 import classNames from 'classnames';
 import ColorSelect from './ColorSelect';
+import Slider from 'react-slick';
 
 const FilterMenu = () => {
     const filterUI = UIStore.useState((s) => s.filterUI);
@@ -27,11 +28,21 @@ const FilterMenu = () => {
     const clearAllFilters = () => {
         UIStore.update((s) => {
             s.filterUI.filtersSelected = {
-                gender: 'Men',
+                gender: '',
                 colorsSelected: [],
-                material: 'Cotton',
+                material: '',
             };
         });
+    };
+
+    const colorSliderSettings = {
+        dots: false,
+        infinite: true,
+        speed: 300,
+        slidesToScroll: 1,
+        slidesToShow: 5,
+        swipeToSlide: true,
+        arrows: false,
     };
 
     return (
@@ -43,6 +54,7 @@ const FilterMenu = () => {
                         className="close-icon"
                         onClick={() => {
                             toggleFilterMenu();
+                            clearAllFilters();
                         }}
                     >
                         <img src="/images/close.svg" />
@@ -53,7 +65,9 @@ const FilterMenu = () => {
                     <div>
                         <button
                             className={classNames(
-                                filterUI.filtersSelected.gender === 'Men' ? 'selected-btn' : undefined
+                                filterUI.filtersSelected.gender === 'Men'
+                                    ? 'selected-btn'
+                                    : undefined
                             )}
                             onClick={(e) => {
                                 changeFilterGender(e);
@@ -65,7 +79,9 @@ const FilterMenu = () => {
                     <div>
                         <button
                             className={classNames(
-                                filterUI.filtersSelected.gender === 'Women' ? 'selected-btn' : undefined
+                                filterUI.filtersSelected.gender === 'Women'
+                                    ? 'selected-btn'
+                                    : undefined
                             )}
                             onClick={(e) => {
                                 changeFilterGender(e);
@@ -77,7 +93,9 @@ const FilterMenu = () => {
                     <div>
                         <button
                             className={classNames(
-                                filterUI.filtersSelected.gender === 'Both' ? 'selected-btn' : undefined
+                                filterUI.filtersSelected.gender === 'Both'
+                                    ? 'selected-btn'
+                                    : undefined
                             )}
                             onClick={(e) => {
                                 changeFilterGender(e);
@@ -89,7 +107,9 @@ const FilterMenu = () => {
                     <div>
                         <button
                             className={classNames(
-                                filterUI.filtersSelected.gender === 'Pets' ? 'selected-btn' : undefined
+                                filterUI.filtersSelected.gender === 'Pets'
+                                    ? 'selected-btn'
+                                    : undefined
                             )}
                             onClick={(e) => {
                                 changeFilterGender(e);
@@ -101,7 +121,9 @@ const FilterMenu = () => {
                     <div>
                         <button
                             className={classNames(
-                                filterUI.filtersSelected.gender === 'All' ? 'selected-btn' : undefined
+                                filterUI.filtersSelected.gender === 'All'
+                                    ? 'selected-btn'
+                                    : undefined
                             )}
                             onClick={(e) => {
                                 changeFilterGender(e);
@@ -114,13 +136,17 @@ const FilterMenu = () => {
 
                 {/* Color Select */}
                 <div className="color-heading">Colour</div>
-                <div className="color-palette-holder">
+                {/* <div className="color-palette-holder"> */}
+                <Slider {...colorSliderSettings} className="color-palette-holder">
                     <ColorSelect color="Black" colorClass="color-black" />
                     <ColorSelect color="Pink" colorClass="color-pink" />
-                    <ColorSelect color="Orange" colorClass="color-orange" />
+                    <ColorSelect color="white" colorClass="color-white" />
                     <ColorSelect color="Green" colorClass="color-green" />
+                    <ColorSelect color="Orange" colorClass="color-orange" />
                     <ColorSelect color="Darkpink" colorClass="color-darkpink" />
-                </div>
+                    <ColorSelect color="Blue" colorClass="color-blue" />
+                </Slider>
+                {/* </div> */}
 
                 {/* Material Select */}
                 <div className="material-heading">Material</div>
@@ -128,7 +154,9 @@ const FilterMenu = () => {
                     <div>
                         <button
                             className={classNames(
-                                filterUI.filtersSelected.material === 'Cotton' ? 'selected-btn' : undefined
+                                filterUI.filtersSelected.material === 'Cotton'
+                                    ? 'selected-btn'
+                                    : undefined
                             )}
                             onClick={(e) => {
                                 changeFilterMaterial(e);
@@ -140,7 +168,9 @@ const FilterMenu = () => {
                     <div>
                         <button
                             className={classNames(
-                                filterUI.filtersSelected.material === 'Fleece' ? 'selected-btn' : undefined
+                                filterUI.filtersSelected.material === 'Fleece'
+                                    ? 'selected-btn'
+                                    : undefined
                             )}
                             onClick={(e) => {
                                 changeFilterMaterial(e);
@@ -152,7 +182,9 @@ const FilterMenu = () => {
                     <div>
                         <button
                             className={classNames(
-                                filterUI.filtersSelected.material === 'Both' ? 'selected-btn' : undefined
+                                filterUI.filtersSelected.material === 'Both'
+                                    ? 'selected-btn'
+                                    : undefined
                             )}
                             onClick={(e) => {
                                 changeFilterMaterial(e);
@@ -166,10 +198,14 @@ const FilterMenu = () => {
                 {/* Apply and Clear Section */}
                 <div className="apply-clear-holder">
                     <div className="apply-btn-holder">
-                        <button>Apply</button>
+                        <button onClick={() => toggleFilterMenu()}>
+                            Apply
+                        </button>
                     </div>
                     <div className="clear-btn-holder">
-                        <button onClick={() => clearAllFilters()}>Clear filters</button>
+                        <button onClick={() => clearAllFilters()}>
+                            Clear filters
+                        </button>
                     </div>
                 </div>
             </div>

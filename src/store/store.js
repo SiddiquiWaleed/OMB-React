@@ -6,9 +6,9 @@ export const UIStore = new Store({
 	filterUI: {
 		filterMenuIsOpen: false,
 		filtersSelected: {
-			gender: "Men",
+			gender: "",
 			colorsSelected: [],
-			material: "Cotton",
+			material: "",
 		},
 	},
 });
